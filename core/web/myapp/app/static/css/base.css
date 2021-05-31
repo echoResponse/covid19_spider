@@ -1,0 +1,79 @@
+        a {TEXT-DECORATION:none; color: black}
+        a:hover {
+            color: red;
+        }
+        a:visited {
+            color: cornflowerblue;
+        }
+        #menu1 {
+                position: fixed;
+                top: 0px;
+                height: 40px;
+                width: 100%;
+                line-height:40px;
+                text-align: center;
+                font-family: verdana, Tahoma, Arial, Hei, "Microsoft Yahei", SimHei;
+                font-size: 25px;
+        }
+
+        .top_title {
+            position: absolute;
+            top: 0px;
+        }
+
+        #beian {
+                position: absolute;
+                bottom: 20px;
+                width: 100%;
+                text-align: center;
+                font-family: verdana, Tahoma, Arial, Hei, "Microsoft Yahei", SimHei;
+                background-color: coral;
+                text-align: center;
+        }
+
+        button1 {
+                color: rgba(127, 255, 255, 0.75);
+                background: transparent;
+                outline: 0px solid rgba(127, 255, 255, 0.75);
+                border: 0px;
+                padding: 5px 75px;
+                cursor: pointer;
+        }
+
+        button1:hover {
+                background-color: rgba(0, 255, 255, 0.5);
+        }
+
+        button1:active {
+            color: #000000;
+            background-color: rgba(0, 255, 255, 0.75);
+        }
+
+        .index_china_all {
+            background-color: #f0c88f;
+            font-family: 华文仿宋;
+            text-align: center;
+            font-size: 20px;
+            color: red;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        tr font {
+            font-size: 15px;
+            text-align: left;
+            color: darkgoldenrod
+        }
+
+        .china_content {
+            width:33%;
+            height: 600px;
+            float: left;
+        }
+
+        #news_content p {
+            text-indent: 2em;
+            line-height:30px;
+            margin:0 auto;
+            text-align: justify;
+        }

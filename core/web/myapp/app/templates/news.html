@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="width: 50%; float: left">
+    <div style="text-align: center; ">
+        <p style="font-weight: bold; font-size: 20px; font-family: '等线 Light';margin: 0 auto; color: red ">国内资讯</p>
+        <form id="area_news_select" action="area_news" method="get" style="width: 100%">
+            <table style="text-align: center; width: 25%; margin: auto">
+                <tr>
+                    <td>地区选择：</td>
+                    <td>
+                        <select name="global_area" style="display: none"><option value="中国">中国</option></select>
+                        <select name="area" id="province_news_select">
+                            <option value="上海">上海</option>
+                            <option value="广东">广东</option>
+                            <option value="黑龙江">黑龙江</option>
+                            <option value="四川">四川</option>
+                            <option value="陕西">陕西</option>
+                            <option value="内蒙古">内蒙古</option>
+                            <option value="福建">福建</option>
+                            <option value="北京">北京</option>
+                            <option value="天津">天津</option>
+                            <option value="甘肃">甘肃</option>
+                            <option value="河南">河南</option>
+                            <option value="江西">江西</option>
+                            <option value="山东">山东</option>
+                            <option value="浙江">浙江</option>
+                            <option value="台湾">台湾</option>
+                            <option value="江苏">江苏</option>
+                            <option value="重庆">重庆</option>
+                            <option value="香港">香港</option>
+                            <option value="湖南">湖南</option>
+                            <option value="河北">河北</option>
+                            <option value="安徽">安徽</option>
+                            <option value="新疆">新疆</option>
+                            <option value="辽宁">辽宁</option>
+                            <option value="广西">广西</option>
+                            <option value="山西">山西</option>
+                            <option value="云南">云南</option>
+                            <option value="湖北">湖北</option>
+                            <option value="海南">海南</option>
+                            <option value="吉林">吉林</option>
+                            <option value="贵州">贵州</option>
+                            <option value="宁夏">宁夏</option>
+                            <option value="澳门">澳门</option>
+                            <option value="青海">青海</option>
+                            <option value="西藏">西藏</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" value="提交">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script>
+                $('#area_news_select').on('submit', function (e) {
+                    e.preventDefault()
+                    var formData = $(this).serialize()
+                    $.ajax({
+                        url:'/area_news',
+                        type:'get',
+                        data:formData,
+                        dataType:'html',
+                        success:function (data) {
+                            parser=new DOMParser();
+                            new_html=parser.parseFromString(data, "text/html");
+                            document.getElementById("news").innerHTML = new_html.getElementById('news').innerHTML;
+                        }
+                    })
+                })
+        </script>
+        <div id="news">
+            <p style="font-size: 12px; margin: 0 auto; font-family: '等线 Light'; font-weight: bold">符合条件的资讯共有：{{data_length}}条</p>
+            <table style="width: 80%; margin: auto; text-align: left">
+                {% for id in id_list %}
+                {%set index=loop.index0%}
+                <tr><td style="font-weight: bold; font-family: '等线 Light'"><a href="/news_info/{{id}}" target="_blank">{{title_list[index]}}</a></td><td style="font-size: smaller">{{source_list[index]}}</td><td style="font-size: smaller">{{public_list[index]}}</td></tr>
+                {% endfor %}
+            </table>
+            <form id="get_more_news_origin"  target="_blank" action="all_news" method="get" style="width: 100%">
+                <table style="text-align: center; width: 25%; margin: auto">
+                    <tr>
+                        <select name="global_area" style="display: none"><option value="中国">中国</option></select>
+                        <select name="area" style="display: none"><option value={{area}}>{{area}}</option></select>
+                        <input type="submit" value="获取所有新闻">
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+<div style="width: 50%; float: left">
+    <div style="text-align: center;">
+        <p style=" font-weight: bold; font-size: 20px; font-family: '等线 Light';margin: 0 auto; color: red">国外资讯</p>
+        <form id="area_news_select_foreign" action="area_news" method="get" style="width: 100%">
+            <table style="text-align: center; width: 25%; margin: auto">
+                <tr>
+                    <td>地区选择：</td>
+                    <td>
+                        <select name="global_area" style="display: none"><option value="国外">国外</option></select>
+                        <select name="area" id="country_news_select">
+                            <option value="日本本土">日本本土</option>
+                            <option value="印度">印度</option>
+                            <option value="南非">南非</option>
+                            <option value="巴基斯坦">巴基斯坦</option>
+                            <option value="德国">德国</option>
+                            <option value="埃及">埃及</option>
+                            <option value="美国">美国</option>
+                            <option value="尼泊尔">尼泊尔</option>
+                            <option value="伊拉克">伊拉克</option>
+                            <option value="以色列">以色列</option>
+                            <option value="意大利">意大利</option>
+                            <option value="匈牙利">匈牙利</option>
+                            <option value="菲律宾">菲律宾</option>
+                            <option value="法国">法国</option>
+                            <option value="智利">智利</option>
+                            <option value="西班牙">西班牙</option>
+                            <option value="瑞典">瑞典</option>
+                            <option value="泰国">泰国</option>
+                            <option value="乌克兰">乌克兰</option>
+                            <option value="俄罗斯">俄罗斯</option>
+                            <option value="挪威">挪威</option>
+                            <option value="爱尔兰">爱尔兰</option>
+                            <option value="瑞士">瑞士</option>
+                            <option value="比利时">比利时</option>
+                            <option value="阿尔及利亚">阿尔及利亚</option>
+                            <option value="克罗地亚">克罗地亚</option>
+                            <option value="越南">越南</option>
+                            <option value="冰岛">冰岛</option>
+                            <option value="斯洛伐克">斯洛伐克</option>
+                            <option value="摩洛哥">摩洛哥</option>
+                            <option value="澳大利亚">澳大利亚</option>
+                            <option value="新加坡">新加坡</option>
+                            <option value="韩国">韩国</option>
+                            <option value="柬埔寨">柬埔寨</option>
+                            <option value="黎巴嫩">黎巴嫩</option>
+                            <option value="约旦">约旦</option>
+                            <option value="亚美尼亚">亚美尼亚</option>
+                            <option value="阿根廷">阿根廷</option>
+                            <option value="墨西哥">墨西哥</option>
+                            <option value="哥斯达黎加">哥斯达黎加</option>
+                            <option value="巴西">巴西</option>
+                            <option value="英国">英国</option>
+                            <option value="葡萄牙">葡萄牙</option>
+                            <option value="马尔代夫">马尔代夫</option>
+                            <option value="荷兰">荷兰</option>
+                            <option value="马来西亚">马来西亚</option>
+                            <option value="希腊">希腊</option>
+                            <option value="新西兰">新西兰</option>
+                            <option value="巴拉圭">巴拉圭</option>
+                            <option value="国外其他">国外其他</option>
+                            <option value="丹麦">丹麦</option>
+                            <option value="斯里兰卡">斯里兰卡</option>
+                            <option value="阿塞拜疆">阿塞拜疆</option>
+                            <option value="斯洛文尼亚">斯洛文尼亚</option>
+                            <option value="多米尼加">多米尼加</option>
+                            <option value="秘鲁">秘鲁</option>
+                            <option value="哥伦比亚">哥伦比亚</option>
+                            <option value="波兰">波兰</option>
+                            <option value="伊朗">伊朗</option>
+                            <option value="保加利亚">保加利亚</option>
+                            <option value="塞内加尔">塞内加尔</option>
+                            <option value="印度尼西亚">印度尼西亚</option>
+                            <option value="奥地利">奥地利</option>
+                            <option value="科威特">科威特</option>
+                            <option value="加拿大">加拿大</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="submit" value="提交">
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script>
+                $('#area_news_select_foreign').on('submit', function (e) {
+                    e.preventDefault()
+                    var formData = $(this).serialize()
+                    $.ajax({
+                        url:'/area_news',
+                        type:'get',
+                        data:formData,
+                        dataType:'html',
+                        success:function (data) {
+                            parser=new DOMParser();
+                            new_html=parser.parseFromString(data, "text/html");
+                            document.getElementById("news_foreign").innerHTML = new_html.getElementById('news').innerHTML;
+                        }
+                    })
+                })
+        </script>
+        <div id="news_foreign">
+            <p style="font-size: 12px; margin: 0 auto; font-family: '等线 Light'; font-weight: bold">符合条件的资讯共有：{{data_length2}}条</p>
+            <table style="width: 80%; margin: auto; text-align: left">
+                {% for id in id_list2 %}
+                {%set index=loop.index0%}
+                <tr><td style="font-weight: bold; font-family: '等线 Light'"><a href="/news_info/{{id}}" target="_blank">{{title_list2[index]}}</a></td><td style="font-size: smaller">{{source_list2[index]}}</td><td style="font-size: smaller">{{public_list2[index]}}</td></tr>
+                {% endfor %}
+            </table>
+            <form id="get_more_news"  target="_blank" action="all_news" method="get" style="width: 100%">
+                <table style="text-align: center; width: 25%; margin: auto">
+                    <tr>
+                        <select name="global_area" style="display: none"><option value="国外">国外</option></select>
+                        <select name="area" style="display: none"><option value={{area}}>{{area}}</option></select>
+                        <input type="submit" value="获取所有新闻">
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="width: 50%; margin: auto;">
+    <div style="text-align: center"><h1 style="font-family: 华文仿宋">{{title}}</h1></div>
+    <div>
+        <table style="width: 100%; text-align: center">
+            <tr>
+                <td style="width: 33%">地区：{{area}}</td>
+                <td style="width: 34%">{{source}}</td>
+                <td style="width: 33%">发布时间：{{public_time}}</td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    {% if image_file %}
+    <div style="text-align: center">
+        <img height="350px" width="70%" src="/static/imgs/other/{{image_file}}"/>
+    </div>
+    {% endif %}
+    <div id="news_content" style="background-color: burlywood">
+        <div style="width: 80%; margin: auto">
+        {% for content in content_list %}
+        <p>{{content}}</p>
+        {% endfor %}
+        </div>
+    </div>
+    <br/>
+    <br/>
+</div>
+{% endblock %}

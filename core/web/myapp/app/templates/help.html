@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <table class="index_china_all">
+        <tr>
+            <td style="font-size: 25px">欢迎访问本网站。感谢您为新冠疫情防控作出的贡献！</td>
+        </tr>
+        <tr>
+            <td style="font-size: 20px; font-style: oblique">为了方便科研工作者的数据访问，本网站提供了针对疫情数据的独立API接口，见以下详细说明</td>
+        </tr>
+    </table>
+</div>
+<div style="width: 70%;background-color: skyblue; margin: 0 auto; font-size: 18px; color: #ca821b">
+    <h2 style="text-align: center">API接口使用说明</h2>
+    <div style="margin: 0 auto; width: 50%; font-weight: bold; font-family: '等线 Light'">
+        <p>1、API接口访问的基础URL为&nbsp;&nbsp;<a href="/api" target="_blank">https://www.geyunhao.cn/api</a></p>
+        <p>2、API访问参数包含地区ID(area)和日期(date)，地区ID以本站提供的为标准，日期格式为yyyymmdd</p>
+        <p>3、日期可以选择单日，也可以选择时间段。若为时间段，则两个日期以“-”进行连接。例如20200301-20210201。若“-”前为空，则表示请求直到“-”后面日期的所有数据，反之类似。</p>
+        <p>4、地区ID的详细情况：<a href="/area_id"target="_blank">点我访问</a></p>
+        <p>5、返回的数据格式为JSON</p>
+    </div>
+    <h2 style="text-align: center">API接口使用示例</h2>
+    <div style="margin: 0 auto; width: 90%; font-family: 华文仿宋; font-weight: bolder">
+        <table style="width: 100%; text-align: center" border="1" cellspacing="0">
+            <tr>
+                <td>*默认API，返回中国所有日期的疫情数据*</td><td>URL：<a href="/api" target="_blank">https://www.geyunhao.cn/api</a></td>
+            </tr>
+            <tr>
+                <td>*访问北京2021年1月1日的疫情数据*</td><td>URL：<a href="/api?area=110000&date=20210101" target="_blank">https://www/geyunhao.cn/api?area=110000&date=20210101</a></td>
+            </tr>
+            <tr>
+                <td>*访问北京所有日期的疫情数据*</td><td>URL：<a href="/api?area=110000" target="_blank">https://www/geyunhao.cn/api?area=110000</a></td>
+            </tr>
+            <tr>
+                <td>*访问北京截止至2021年1月1日的所有疫情数据*</td><td>URL：<a href="/api?area=110000&date=-20210101" target="_blank">https://www/geyunhao.cn/api?area=110000&date=-20210101</a></td>
+            </tr>
+            <tr>
+                <td>*访问北京2021年1月1日之后的所有疫情数据*</td><td>URL：<a href="/api?area=110000&date=20210101-" target="_blank">https://www/geyunhao.cn/api?area=110000&date=20210101-</a></td>
+            </tr>
+            <tr>
+                <td>*访问北京2021年1月1日至2021年3月1日的所有疫情数据*</td><td>URL：<a href="/api?area=110000&date=20210101-20210301" target="_blank">https://www/geyunhao.cn/api?area=110000&date=20210101-20210301</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+{% endblock %}

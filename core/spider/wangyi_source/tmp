@@ -1,0 +1,10 @@
+2021-04-03 11:10:11 connectionpool.py [line:975] DEBUG: Starting new HTTPS connection (1): wechat.wecity.qq.com:443
+2021-04-03 11:10:11 connectionpool.py [line:461] DEBUG: https://wechat.wecity.qq.com:443 "POST /api/THPneumoniaService/getAreaContents HTTP/1.1" 200 None
+2021-04-03 11:10:11 connectionpool.py [line:975] DEBUG: Starting new HTTPS connection (1): h5.baike.qq.com:443
+2021-04-03 11:10:11 connectionpool.py [line:461] DEBUG: https://h5.baike.qq.com:443 "POST /api/access/json/cmd/GetMediaDocDataInfo HTTP/1.1" 200 None
+2021-04-03 11:10:12 connectionpool.py [line:975] DEBUG: Starting new HTTPS connection (1): wechat.wecity.qq.com:443
+2021-04-03 11:10:12 connectionpool.py [line:461] DEBUG: https://wechat.wecity.qq.com:443 "POST /api/THPneumoniaService/getAreaContents HTTP/1.1" 200 None
+2021-04-03 11:10:12 connectionpool.py [line:975] DEBUG: Starting new HTTPS connection (1): h5.baike.qq.com:443
+2021-04-03 11:10:13 connectionpool.py [line:461] DEBUG: https://h5.baike.qq.com:443 "POST /api/access/json/cmd/GetMediaDocDataInfo HTTP/1.1" 200 None
+{'id': 39044, 'title': '世卫组织：全球新冠肺炎确诊病例超1.292亿例', 'desc': '来源 央视新闻客户端编辑：黄品超流程编辑 吴越', 'url': None, 
+'source': '信息来源：北京日报客户端', 'public_time': '2021-04-03 07:09', 'image': '', 'image_source': '', 'content': 'Q、现阶段全程接种新冠病毒灭活疫苗后，还需要加强免疫吗？A、现阶段暂不推荐加强免疫。Q、免疫功能受损人群可以接种新冠病毒疫苗吗？A、免疫功能受损人群是感染新冠病毒后的重症、死亡高风险人群', 'area': '国外其他', 'global_area': '国外'}

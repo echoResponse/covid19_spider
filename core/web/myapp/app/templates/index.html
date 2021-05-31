@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div>
+    <table class="index_china_all">
+        <tr>
+            <td colspan="6" style="font-size: 25px">全国疫情数据(含港澳台)</td>
+        </tr>
+        <tr>
+            <td colspan="6" style="font-size: 15px">更新时间：{{update_time}}</td>
+        </tr>
+        <tr>
+            <td>境外输入</td>
+            <td>无症状感染者</td>
+            <td>现有确诊</td>
+            <td>累计确诊</td>
+            <td>累计死亡</td>
+            <td>累计治愈</td>
+        </tr>
+        <tr style="font-weight: bold; font-size: 25px">
+            <td>{{ input_all }}<font>&nbsp;&nbsp;较昨日:{{input_add}}</font></td>
+            <td>{{ noinfect_now }}<font>&nbsp;&nbsp;较昨日:{{noinfect_add}}</font></td>
+            <td>{{ confirm_now }}<font>&nbsp;&nbsp;较昨日:{{confirm_now_add}}</font></td>
+            <td>{{ confirm_all }}<font>&nbsp;&nbsp;较昨日:{{confirm_add}}</font></td>
+            <td>{{ dead_all }}<font>&nbsp;&nbsp;较昨日:{{dead_add}}</font></td>
+            <td>{{ heal_all }}<font>&nbsp;&nbsp;较昨日:{{heal_add}}</font></td>
+        </tr>
+    </table>
+</div>
+<div style="width: 100%">
+    <div class="china_content" style="width: 40%">
+        <div id="map" style="height: 550px;"></div>
+        <div><table style="width: 100%; text-align: center; color: red"><tr><td onclick="now_covid();"><button style="cursor: pointer;">现存确诊</button></td><td onclick="all_covid();"><button style="cursor: pointer;">累计确诊</button></td></tr></table></div>
+    </div>
+    <script type="text/javascript" src="/static{{line_script1}}"></script>
+    <script type="text/javascript" src="/static{{line2_script1}}"></script>
+    <div class="china_content" style="text-align: center; width: 60%; ">
+    <div style="height: 50%" id="{{line_div_id}}"></div>
+    <div style="height: 50%" id="{{line2_div_id}}"></div>
+    </div>
+    <script type="text/javascript" src="/static{{line_script2}}"></script>
+    <script type="text/javascript" src="/static{{line2_script2}}"></script>
+</div>
+<hr style="border-color: antiquewhite;height: 5px"/>
+<div class="index_china_all" style="margin-top: 10px">
+    <p style="font-size: 25px; margin: 0 auto">国内各地区疫情数据</p>
+</div>
+<script type="text/javascript">
+function change_table_to_now() {
+ document.getElementById('table_province_now').style = "background-color: #F0C88F; font-family: '等线 Light'";
+ document.getElementById('table_province_all').style = "background-color: #F0C88F; font-family: '等线 Light'; display:none";
+}
+function change_table_to_all() {
+ document.getElementById('table_province_now').style = "background-color: #F0C88F; font-family: '等线 Light'; display:none";
+ document.getElementById('table_province_all').style = "background-color: #F0C88F; font-family: '等线 Light'";
+}
+</script>
+<div style="width: 100%; text-align: center; background-color: antiquewhite">
+    <div style="float:left; width: 30%; height: 800px" class="province_data">
+        <div style="text-align: center; background-color: #F0C88F; font-weight: bold; font-size: 20px; font-family: '等线 Light'">
+            <p style="margin: 0 auto; float: top">地区疫情数据一览表</p>
+            <button onclick="change_table_to_now()" style="cursor: pointer;font-size: 10px; font-family: '等线 Light'; font-weight: bold">现存确诊</button>
+            <button onclick="change_table_to_all()" style="cursor: pointer;font-size: 10px; font-family: '等线 Light'; font-weight: bold">累计确诊</button>
+        </div>
+        <table id='table_province_now' width="100%" style="background-color: #F0C88F; font-family: '等线 Light';display: none">
+        {% autoescape false %}
+        {{ province_table_now }}
+        {% endautoescape %}
+        </table>
+        <table id='table_province_all' width="100%" style="background-color: #F0C88F; font-family: '等线 Light';">
+        {% autoescape false %}
+        {{ province_table_all }}
+        {% endautoescape %}
+        </table>
+    </div>
+    <div style="float:left; width: 70%" >
+        <div style="text-align: center; background-color: #F0C88F; font-weight: bold; font-size: 20px; font-family: '等线 Light';">
+            <p style="margin: 0 auto; float: top">地区疫情数据详情搜索</p>
+        </div>
+        <div style="width: 100%; height: 30px">
+            <form id='get_area_data' action="china_area" method="get">
+                    <select name="province" id="province" onchange="getCity()">
+                      <option value="">省份/直辖市/自治区/特别行政区</option>
+                      <!-- 利用js把省份添加到下拉列表里-->
+                      <script type="text/javascript">
+                         for(var i=0;i<provinceArr.length;i++)
+                          {
+                            document.write("<option value='"+i+"'>"+provinceArr[i]+"</option>");
+
+                           }
+                       </script>
+                    </select>
+                    <select name="city" id="city">
+                        <option value="">地级市/区/县</option>
+                    </select>
+                    <input type="submit" value="搜索">
+            </form>
+            <script>
+                $('#get_area_data').on('submit', function (e) {
+                    e.preventDefault()
+                    var formData = $(this).serialize()
+                    $.ajax({
+                        url:'/china_area',
+                        type:'get',
+                        data:formData,
+                        dataType:'html',
+                        success:function (data) {
+                            parser=new DOMParser();
+                            new_html=parser.parseFromString(data, "text/html");
+                            removeJS("map_script_pre");
+                            removeJS("map_script_post");
+                            for (var count=0; count<4; count++)
+                            {
+                                script_src = new_html.getElementsByClassName('new_js')[count].getAttribute('src');
+                                loadJS(script_src, "map_script_pre");
+                            }
+                            document.getElementById("china_area_change").innerHTML = new_html.getElementById('area_data').innerHTML;
+                            for (count=0; count<3; count++)
+                            {
+                                script_src = new_html.getElementsByClassName('new_js2')[count].getAttribute('src');
+                                loadJS(script_src, "map_script_post");
+                            }
+                        }
+                    })
+                })
+            </script>
+        </div>
+        <map_script_pre id="map_script_pre" style="display: none"></map_script_pre>
+        <div id="china_area_change" style="width: 100%;height: 900px">
+            <div style="height: 500px;">
+                <script type="text/javascript" src="/static{{area_script1}}"></script>
+                <script type="text/javascript" src="/static{{area2_script1}}"></script>
+                <div style="height: 50%" id="{{area_div_id}}"></div>
+                <div style="height: 50%" id="{{area2_div_id}}"></div>
+                <script type="text/javascript" src="/static{{area_script2}}"></script>
+                <script type="text/javascript" src="/static{{area2_script2}}"></script>
+            </div>
+            <script type="text/javascript" src="/static{{map_script1}}"></script>
+            <script type="text/javascript" src="/static{{map_script2}}"></script>
+            <div style="height: 400px" id="{{map_div_id}}"></div>
+            <script type="text/javascript" src="/static{{map_script3}}"></script>
+        </div>
+        <map_script_post id="map_script_post" style="display: none"></map_script_post>
+    </div>
+</div>
+<script src="{{url_for('static', filename='js/highmap.js', version=7)}}"></script>
+<script src="{{url_for('static', filename='js/china_map.js', version=4)}}"></script>
+<script type="text/javascript">
+var data = {{data_list_now|tojson}};
+// 初始化图表
+var map = new Highcharts.Map('map', {
+  title: {
+    text: '中国疫情地图▪现存确诊'
+  },
+  colorAxis: {
+    min: 1,
+    minColor: '#FFFFFF',
+    maxColor: '#FF0000'
+  },
+  series: [{
+    data: data,
+    name: '现存确诊数',
+    mapData: Highcharts.maps['cn/china'],
+    joinBy: 'name' // 根据 name 属性进行关联
+  }]
+});
+function now_covid() {
+    var data = {{data_list_now|tojson}};
+    // 初始化图表
+    var map = new Highcharts.Map('map', {
+      title: {
+        text: '中国疫情地图▪现存确诊'
+      },
+      colorAxis: {
+        min: 0,
+        minColor: '#FFFFFF',
+        maxColor: '#FF0000'
+      },
+      series: [{
+        data: data,
+        name: '现存确诊数',
+        mapData: Highcharts.maps['cn/china'],
+        joinBy: 'name' // 根据 name 属性进行关联
+      }]
+    });
+}
+function all_covid() {
+    var data = {{data_list_all|tojson}};
+    // 初始化图表
+    var map = new Highcharts.Map('map', {
+      title: {
+        text: '中国疫情地图▪累计确诊'
+      },
+      colorAxis: {
+        min: 0,
+       minColor: '#FFFFFF',
+        maxColor: '#FF0000'
+      },
+      series: [{
+        data: data,
+        name: '累计确诊数',
+        mapData: Highcharts.maps['cn/china'],
+        joinBy: 'name' // 根据 name 属性进行关联
+      }]
+    });
+}
+</script>
+<hr style="border-color: antiquewhite;height: 5px"/>
+<div class="index_china_all" style="width: 100%">
+    <p style="margin-top: 0; font-size: 25px; margin: 0 auto">境外输入数据</p>
+    <p style="font-size: 15px; margin: 0 auto">更新时间：{{input_update_time}}</p>
+</div>
+<div style="width: 100%;">
+    <div style="width: 100%">
+        <table  cellspacing="0" bgcolor="#F0C88F" border="1px solid" style="text-align: center; font-family: '等线 Light';border-color: #ca821b;">
+            <caption style="background-color: #F0C88F; font-family: '等线 Light'; font-weight: bolder">境外输入明细表</caption>
+            <tr>
+                <td>省市</td>
+                <td>累计输入</td>
+                {% for source in source_list %}
+                <td>{{source[0]}}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>累计输出</td><td>-</td>
+                {% for source in source_list %}
+                <td>{{source[1]}}</td>
+                {% endfor %}
+            </tr>
+            {% autoescape false %}
+                {{html_str}}
+            {% endautoescape %}
+        </table>
+    </div>
+</div>
+{% endblock %}

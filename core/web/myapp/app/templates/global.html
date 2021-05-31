@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<script type="text/javascript">
+function world_table_now() {
+ document.getElementById('world_table_by_now').style = "font-family: '等线 Light'; font-size: large";
+ document.getElementById('world_table_by_all').style = "display: none;font-family: '等线 Light'; font-size: large";
+}
+function world_table_all() {
+ document.getElementById('world_table_by_now').style = "display: none;font-family: '等线 Light'; font-size: large";
+ document.getElementById('world_table_by_all').style = "font-family: '等线 Light'; font-size: large";
+}
+</script>
+<div>
+    <table class="index_china_all">
+        <tr>
+            <td colspan="4" style="font-size: 25px">世界疫情数据(含中国)</td>
+            <td colspan="4" style="font-size: 25px">海外疫情数据(不含中国)</td>
+        </tr>
+        <tr>
+            <td colspan="8" style="font-size: 15px">更新时间：{{update_time}}</td>
+        </tr>
+        <tr>
+            <td>现有确诊</td>
+            <td>累计确诊</td>
+            <td>累计死亡</td>
+            <td style="border-right-style: solid">累计治愈</td>
+            <td>现有确诊</td>
+            <td>累计确诊</td>
+            <td>累计死亡</td>
+            <td>累计治愈</td>
+        </tr>
+        <tr style="font-weight: bold; font-size: 25px">
+            <td>{{ data_world_and_china[0] }}<font>&nbsp;&nbsp;较昨日:{{data_world_and_china[1]}}</font></td>
+            <td>{{ data_world_and_china[2] }}<font>&nbsp;&nbsp;较昨日:{{data_world_and_china[3]}}</font></td>
+            <td>{{ data_world_and_china[4] }}<font>&nbsp;&nbsp;较昨日:{{data_world_and_china[5]}}</font></td>
+            <td style="border-right-style: solid">{{ data_world_and_china[6] }}<font>&nbsp;&nbsp;较昨日:{{data_world_and_china[7]}}</font></td>
+            <td>{{ data_world[0] }}<font>&nbsp;&nbsp;较昨日:{{data_world[1]}}</font></td>
+            <td>{{ data_world[2] }}<font>&nbsp;&nbsp;较昨日:{{data_world[3]}}</font></td>
+            <td>{{ data_world[4] }}<font>&nbsp;&nbsp;较昨日:{{data_world[5]}}</font></td>
+            <td>{{ data_world[6] }}<font>&nbsp;&nbsp;较昨日:{{data_world[7]}}</font></td>
+        </tr>
+    </table>
+</div>
+<div style="width: 100%; height: 400px">
+<script type="text/javascript" src="/static{{line1_script1_name}}"></script>
+<script type="text/javascript" src="/static{{line2_script1_name}}"></script>
+<div  style="width: 50%; float:left; height: 400px" id="{{line1_div_id}}"></div>
+<div  style="width: 50%; float:left; height: 400px" id="{{line2_div_id}}"></div>
+<script type="text/javascript" src="/static{{line1_script2_name}}"></script>
+<script type="text/javascript" src="/static{{line2_script2_name}}"></script>
+</div>
+<hr style="border-color: antiquewhite;height: 5px"/>
+<div style="width: 100%; text-align: center">
+    <p style="margin-top: 0; font-size: 25px; margin: 0 auto" class="index_china_all">海外疫情数据一览表</p>
+    <table style="width: 25%; margin: auto">
+        <tr>
+            <td style="font-family: '等线 Light'; font-size: small; font-weight: bold; color: red">选择排序方式：</td>
+            <td><button onclick="world_table_now()" style="cursor: pointer;font-size: 10px; font-family: '等线 Light'; font-weight: bold">现存确诊</button></td>
+            <td><button onclick="world_table_all()" style="cursor: pointer;font-size: 10px; font-family: '等线 Light'; font-weight: bold">累计确诊</button></td>
+        </tr>
+    </table>
+    <div id="world_table_by_now" style="font-family: '等线 Light'; font-size: large">
+        <div style="width: 49%; float:left;border-right: 1px solid lightcoral">
+        <table style="width: 100%;">
+            <tr>
+                <td>排序</td>
+                <td>国家/地区</td>
+                <td>现存确诊</td>
+                <td>累计确诊</td>
+                <td>新增确诊</td>
+                <td>累计死亡</td>
+                <td>累计治愈</td>
+                <td>地区详情</td>
+            </tr>
+            {% for country_name in country_name_list1%}
+            {%set index=loop.index0%}
+            {%set count=index+1%}
+            <tr>
+                <td>{{count}}</td>
+                <td style="font-weight: bold">{{country_name}}</td>
+                <td>{{confirm_now_list1[index]}}</td>
+                <td>{{confirm_all_list1[index]}}</td>
+                <td>{{confirm_add_list1[index]}}</td>
+                <td>{{dead_all_list1[index]}}</td>
+                <td>{{heal_list1[index]}}</td>
+                <td><a target="_blank" href="/global/area_info/{{country_id_list1[index]}}">查看详情</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <div style="width: 49%;float:left;border-left: 1px solid lightcoral">
+        <table style="width: 100%">
+            <tr>
+                <td>排序</td>
+                <td>国家/地区</td>
+                <td>现存确诊</td>
+                <td>累计确诊</td>
+                <td>新增确诊</td>
+                <td>累计死亡</td>
+                <td>累计治愈</td>
+                <td>地区详情</td>
+            </tr>
+            {% for country_name in country_name_list2%}
+            {%set index=loop.index0%}
+            {%set count=index+1+half%}
+            <tr>
+                <td>{{count}}</td>
+                <td style="font-weight: bold">{{country_name}}</td>
+                <td>{{confirm_now_list2[index]}}</td>
+                <td>{{confirm_all_list2[index]}}</td>
+                <td>{{confirm_add_list2[index]}}</td>
+                <td>{{dead_all_list2[index]}}</td>
+                <td>{{heal_list2[index]}}</td>
+                <td><a target="_blank" href="/global/area_info/{{country_id_list2[index]}}">查看详情</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+
+    <div id="world_table_by_all" style="display: none; font-family: '等线 Light'; font-size: large">
+        <div style="width: 49%; float:left;border-right: 1px solid lightcoral">
+        <table style="width: 100%">
+            <tr>
+                <td>排序</td>
+                <td>国家/地区</td>
+                <td>累计确诊</td>
+                <td>现存确诊</td>
+                <td>新增确诊</td>
+                <td>累计死亡</td>
+                <td>累计治愈</td>
+                <td>地区详情</td>
+            </tr>
+            {% for country_name in country_name_list_all1%}
+            {%set index=loop.index0%}
+            {%set count=index+1%}
+            <tr>
+                <td>{{count}}</td>
+                <td style="font-weight: bold">{{country_name}}</td>
+                <td>{{confirm_all_list_all1[index]}}</td>
+                <td>{{confirm_now_list_all1[index]}}</td>
+                <td>{{confirm_add_list_all1[index]}}</td>
+                <td>{{dead_all_list_all1[index]}}</td>
+                <td>{{heal_list_all1[index]}}</td>
+                <td><a target="_blank" href="/global/area_info/{{country_id_list_all1[index]}}">查看详情</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+        <div style="width: 49%;float:left;border-left: 1px solid lightcoral">
+        <table style="width: 100%">
+            <tr>
+                <td>排序</td>
+                <td>国家/地区</td>
+                <td>累计确诊</td>
+                <td>现存确诊</td>
+                <td>新增确诊</td>
+                <td>累计死亡</td>
+                <td>累计治愈</td>
+                <td>地区详情</td>
+            </tr>
+            {% for country_name in country_name_list_all2%}
+            {%set index=loop.index0%}
+            {%set count=index+1+half%}
+            <tr>
+                <td>{{count}}</td>
+                <td style="font-weight: bold">{{country_name}}</td>
+                <td>{{confirm_all_list_all2[index]}}</td>
+                <td>{{confirm_now_list_all2[index]}}</td>
+                <td>{{confirm_add_list_all2[index]}}</td>
+                <td>{{dead_all_list_all2[index]}}</td>
+                <td>{{heal_list_all2[index]}}</td>
+                <td><a target="_blank" href="/global/area_info/{{country_id_list_all2[index]}}">查看详情</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

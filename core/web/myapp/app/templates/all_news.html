@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="index_china_all" style="margin-top: 10px">
+    <p style="font-size: 25px; margin: 0 auto">{{title}}</p>
+    <p style="font-size: 12px; margin: 0 auto; font-family: '等线 Light'; font-weight: bold">符合条件的资讯共有：{{data_length}}条</p>
+</div>
+<div id="news">
+    <table style="width: 80%; margin: auto; text-align: left">
+        {% for id in id_list %}
+        {%set index=loop.index0%}
+        <tr><td style="font-weight: bold; font-family: '等线 Light'"><a href="/news_info/{{id}}" target="_blank">{{title_list[index]}}</a></td><td style="font-size: smaller">{{source_list[index]}}</td><td style="font-size: smaller">{{public_list[index]}}</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+2021-05-20 10:47:11 connectionpool.py [line:975] DEBUG: Starting new HTTPS connection (1): c.m.163.com:443
+2021-05-20 10:47:11 connectionpool.py [line:461] DEBUG: https://c.m.163.com:443 "GET /ug/api/wuhan/app/data/list-by-area-code?areaCode=9577772 HTTP/1.1" 200 None
+https://c.m.163.com/ug/api/wuhan/app/data/list-by-area-code?areaCode=9577772	爬取成功
+2021-05-20 10:47:11 get_all_history.py [line:55] INFO: https://c.m.163.com/ug/api/wuhan/app/data/list-by-area-code?areaCode=9577772	爬取成功
+2021-05-20 10:47:11 database.py [line:36] DEBUG: 疫情数据已经存在:{'date': '2021-05-18', 'continent_name': '非洲', 'continent_eng': 'Africa', 'country_name': '突尼斯', 'country_eng': 'Tunisia', 'country_id': '9577772', 'province_name': None, 'province_id': None, 'city_name': None, 'city_id': None, 'confirm_all': 327473, 'dead_all': 11899, 'heal_all': 288935, 'input_all': 0, 'confirm_now': 26639, 'confirm_now_add': None, 'input_add': 0, 'suspect_all': 0, 'noinfect_now': None, 'confirm_add': 901, 'dead_add': 50, 'heal_add': 1291, 'suspect_add': None, 'toucher_all': None, 'toucher_now': None, 'noinfect_add': None, 'noinfect_to_confirm': None, 'noinfect_exit': None, 'severe_add': None, 'severe_all': 0, 'update_time': None}
+2021-05-18	突尼斯	数据已写入数据库
+当日数据，暂不进入数据库
+2021-05-20 10:47:13 connectionpool.py [line:975] DEBUG: Starting new HTTPS connection (1): c.m.163.com:443
+2021-05-20 10:47:13 connectionpool.py [line:461] DEBUG: https://c.m.163.com:443 "GET /ug/api/wuhan/app/data/list-by-area-code?areaCode=9507896 HTTP/1.1" 200 None
+https://c.m.163.com/ug/api/wuhan/app/data/list-by-area-code?areaCode=9507896	爬取成功
+2021-05-20 10:47:13 get_all_history.py [line:55] INFO: https://c.m.163.com/ug/api/wuhan/app/data/list-by-area-code?areaCode=9507896	爬取成功
+2021-05-20 10:47:13 database.py [line:36] DEBUG: 疫情数据已经存在:{'date': '2021-05-18', 'continent_name': '欧洲', 'continent_eng': 'Europe', 'country_name': '塞尔维亚', 'country_eng': 'Serbia', 'country_id': '9507896', 'province_name': None, 'province_id': None, 'city_name': None, 'city_id': None, 'confirm_all': 707719, 'dead_all': 6710, 'heal_all': 0, 'input_all': 0, 'confirm_now': 701009, 'confirm_now_add': None, 'input_add': 0, 'suspect_all': 0, 'noinfect_now': None, 'confirm_add': 686, 'dead_add': 14, 'heal_add': 0, 'suspect_add': None, 'toucher_all': None, 'toucher_now': None, 'noinfect_add': None, 'noinfect_to_confirm': None, 'noinfect_exit': None, 'severe_add': None, 'severe_all': 0, 'update_time': None}
+2021-05-18	塞尔维亚	数据已写入数据库
+当日数据，暂不进入数据库

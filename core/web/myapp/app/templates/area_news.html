@@ -1,0 +1,18 @@
+<div id="news">
+    <p style="font-size: 12px; margin: 0 auto; font-family: '等线 Light'; font-weight: bold">符合条件的资讯共有：{{data_length}}条</p>
+    <table style="width: 80%; margin: auto; text-align: left">
+        {% for id in id_list %}
+        {%set index=loop.index0%}
+        <tr><td style="font-weight: bold; font-family: '等线 Light'"><a href="/news_info/{{id}}" target="_blank">{{title_list[index]}}</a></td><td style="font-size: smaller">{{source_list[index]}}</td><td style="font-size: smaller">{{public_list[index]}}</td></tr>
+        {% endfor %}
+    </table>
+    <form id="get_more_news_origin"  target="_blank" action="all_news" method="get" style="width: 100%">
+        <table style="text-align: center; width: 25%; margin: auto">
+            <tr>
+                <select name="global_area" style="display: none"><option value="{{global_area}}">{{global}}</option></select>
+                <select name="area" style="display: none"><option value={{area}}>{{area}}</option></select>
+                <input type="submit" value="获取所有新闻">
+            </tr>
+        </table>
+    </form>
+</div>

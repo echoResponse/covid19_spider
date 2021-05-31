@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="width: 100%; text-align: center" class="index_china_all">
+    <p style="margin-top: 0; font-size: 25px; margin: 0 auto">{{title}}详情</p>
+    <p style="margin-top: 0; font-size: 15px; margin: 0 auto">更新时间：{{update_time}}</p>
+    <table width="50%" style="margin: auto">
+        <tr>
+            <td>现有确诊</td>
+            <td>累计确诊</td>
+            <td>累计死亡</td>
+            <td>累计治愈</td>
+        </tr>
+        <tr>
+            <td>{{confirm_now}}<font>&nbsp;&nbsp;较昨日:{{confirm_now_add}}</font></td>
+            <td>{{confirm_all}}<font>&nbsp;&nbsp;较昨日:{{confirm_add}}</font></td>
+            <td>{{dead_all}}<font>&nbsp;&nbsp;较昨日:{{dead_add}}</font></td>
+            <td>{{heal_all}}<font>&nbsp;&nbsp;较昨日:{{heal_add}}</font></td>
+        </tr>
+    </table>
+</div>
+<br/>
+<br/>
+<div style="width: 100%; text-align: center">
+    <p style="margin-top: 0; font-size: 25px; margin: 0 auto" class="index_china_all">{{title}}疫情趋势图</p>
+    <div style="width: 100%; height: 400px">
+    <script type="text/javascript" src="/static{{line1_script1_name}}"></script>
+    <script type="text/javascript" src="/static{{line2_script1_name}}"></script>
+    <div  style="width: 50%; float:left; height: 400px" id="{{line1_div_id}}"></div>
+    <div  style="width: 50%; float:left; height: 400px" id="{{line2_div_id}}"></div>
+    <script type="text/javascript" src="/static{{line1_script2_name}}"></script>
+    <script type="text/javascript" src="/static{{line2_script2_name}}"></script>
+    </div>
+</div>
+{% if province_name_list %}
+<div style="width: 100%; text-align: center">
+    <p style="margin-top: 0; font-size: 25px; margin: 0 auto" class="index_china_all">{{title}}各地区疫情数据</p>
+    <div style="width: 100%; text-align: center; font-family: '等线 Light'">
+        <div style="width: 49%; float:left; border-right: 1px solid lightcoral">
+            <table style="margin: auto; width: 100%">
+                <caption style="font-weight: bold; color: red">按现存确诊排序</caption>
+                <tr>
+                    <td>地区</td>
+                    <td>现存确诊</td>
+                    <td>累计确诊</td>
+                    <td>累计死亡</td>
+                    <td>累计治愈</td>
+                </tr>
+                {% for area_name in province_name_list %}
+                {%set index=loop.index0%}
+                <tr>
+                    <td style="font-weight: bold">{{area_name}}</td>
+                    <td>{{confirm_now_list[index]}}</td>
+                    <td>{{confirm_all_list[index]}}</td>
+                    <td>{{dead_all_list[index]}}</td>
+                    <td>{{heal_all_list[index]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div style="width: 49%; float:left; border-left: 1px solid lightcoral">
+            <table style="margin: auto; width: 100%;">
+                <caption  style="font-weight: bold; color: red">按累计确诊排序</caption>
+                <tr>
+                    <td>地区</td>
+                    <td>累计确诊</td>
+                    <td>现存确诊</td>
+                    <td>累计死亡</td>
+                    <td>累计治愈</td>
+                </tr>
+                {% for area_name in province_name_list2 %}
+                {%set index=loop.index0%}
+                <tr>
+                    <td style="font-weight: bold">{{area_name}}</td>
+                    <td>{{confirm_all_list2[index]}}</td>
+                    <td>{{confirm_now_list2[index]}}</td>
+                    <td>{{dead_all_list2[index]}}</td>
+                    <td>{{heal_all_list2[index]}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}
